@@ -5,7 +5,7 @@ namespace Rapidez\BladeDirectives;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class BladeDirectivesServiceProvider extends ServiceProvider
 {
     public function register()
     {

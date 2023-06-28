@@ -23,7 +23,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Rapidez\\BladeDirectives\\AppServiceProvider"
+                "Rapidez\\BladeDirectives\\BladeDirectivesServiceProvider"
             ]
         }
     }
