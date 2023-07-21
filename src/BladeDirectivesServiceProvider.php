@@ -53,6 +53,6 @@ class BladeDirectivesServiceProvider extends ServiceProvider
 
     public function boot()
     {
-
+        Blade::anonymousComponentPath(__DIR__.'/../resources/views/components');
     }
 }

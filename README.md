@@ -1,8 +1,6 @@
 # Rapidez Blade Directives
 
-This package adds blade directives that we found we needed in Laravel during development of Rapidez.
-Like `@slots`, which lets you define optional slots so your `attributes->merge()` always works.
-Or `@includeFirstSafe` which works the same as `@includeFirst` but will not throw errors if no template was found.
+This package adds blade directives that we found we needed in Laravel during development of Rapidez. Like `@slots`, which lets you define optional slots so your `attributes->merge()` always works. Or `@includeFirstSafe` which works the same as `@includeFirst` but will not throw errors if no template was found.
 
 ## Installation
 
@@ -10,16 +8,38 @@ Or `@includeFirstSafe` which works the same as `@includeFirst` but will not thro
 composer require rapidez/blade-directives
 ```
 
+## Components
+
+### x-tag
+
+Yeah we know, it's a component, not a directive but this could be a useful one that's why've added it. It is a Blade version of a [dynamic Vue component](https://vuejs.org/guide/essentials/component-basics.html#dynamic-components)
+
+#### Usage
+
+```blade
+<x-tag is="span" class="font-bold">
+    Something
+</x-tag>
+```
+
+which will result in
+
+```html
+<span class="font-bold">
+    Something
+</span>
+```
+
+
 ## Directives
 
 ### @attributes
 
-The `@attributes` blade directive allows you to pass the attributes for a html element using an array.
-It's functionally the same as the `$attributes` of a blade component but you can use it outside of blade components!
+The `@attributes` blade directive allows you to pass the attributes for a html element using an array. It's functionally the same as the `$attributes` of a blade component but you can use it outside of blade components!
 
 #### Usage
 
-[Real life example](https://github.com/rapidez/statamic/blob/066b5d336e44890c5b4049f5df3c62b15ed302b2/resources/views/page_builder/form.blade.php#L9)
+[Example](https://github.com/rapidez/statamic/blob/066b5d336e44890c5b4049f5df3c62b15ed302b2/resources/views/page_builder/form.blade.php#L9)
 
 ```blade
 <input @attributes(['type' => 'text', 'id' => 'test', 'name' => 'some_name'])/>
@@ -38,7 +58,7 @@ Outside of production mode it will alert about the missing templates however.
 
 #### Usage
 
-[Real life example](https://github.com/rapidez/statamic/blob/066b5d336e44890c5b4049f5df3c62b15ed302b2/resources/views/page_builder.blade.php#L2)
+[Example](https://github.com/rapidez/statamic/blob/066b5d336e44890c5b4049f5df3c62b15ed302b2/resources/views/page_builder.blade.php#L2)
 
 ```blade
 @includeFirstSafe(['custom.admin', 'admin'], ['status' => 'complete'])
@@ -50,7 +70,7 @@ The `@return` blade directive simply stops any further processing of the current
 
 #### Usage
 
-[Real life example](https://github.com/rapidez/statamic/blob/066b5d336e44890c5b4049f5df3c62b15ed302b2/resources/views/page_builder/form.blade.php#L5)
+[Example](https://github.com/rapidez/statamic/blob/066b5d336e44890c5b4049f5df3c62b15ed302b2/resources/views/page_builder/form.blade.php#L5)
 
 ```blade
 @return
