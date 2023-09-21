@@ -17,10 +17,6 @@ class BladeDirectivesServiceProvider extends ServiceProvider
             return "<?php echo (new \Illuminate\View\ComponentAttributeBag)($expression); ?>";
         });
 
-        Blade::directive('return', function () {
-            return "<?php return; ?>";
-        });
-
         Blade::directive('includeFirstSafe', function (string $expression) {
             /**
              * @see \Illuminate\View\Compilers\Concerns\CompilesIncludes@compileIncludeFirst
@@ -30,6 +26,14 @@ class BladeDirectivesServiceProvider extends ServiceProvider
             $expression = Blade::stripParentheses($expression);
 
             return "<?php try { echo \$__env->first({$expression}, \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); } catch (\InvalidArgumentException \$e) { if (!app()->environment('production')) { echo '<hr>'.__('View not found: :view', ['view' => implode(', ', [{$expression}][0])]).'<hr>'; } } ?>";
+        });
+
+        Blade::directive('markdown', function ($markdown) {
+            return "<?php echo Str::markdown(e($markdown)); ?>";
+        });
+
+        Blade::directive('return', function () {
+            return "<?php return; ?>";
         });
 
         Blade::directive('slots', function ($expression) {
