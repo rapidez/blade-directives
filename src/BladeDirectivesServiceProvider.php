@@ -50,34 +50,36 @@ class BladeDirectivesServiceProvider extends ServiceProvider
 <?php \$attributes = \$attributes->exceptProps($expression); ?>";
         });
 
-        Blade::directive('tags', function ($expression) {
-            /**
-             * Use Statamic::tag() in a more convenient way
-             * Usage:
-             *  - @tags(['products' => ['collection:products' => ['type' => 'chair']]])
-             *  - @tags(['products' => 'collection:products'])
-             *  - @tags('collection:products')
-             * etc...
-             */
-            return "<?php
-                foreach(Arr::wrap($expression) as \$__key => \$__value) {
-                    if (is_array(\$__value) && in_array('tag', \$__value)) {
-                        \$__tag = \$__value['tag'];
-                        \$__params = \$__value['params'] ?? [];
-                    } else if (is_array(\$__value) && count(\$__value) == 1) {
-                        \$__tag = array_keys(\$__value)[0];
-                        \$__params = array_values(\$__value)[0];
-                    } else if (is_string(\$__value) {
-                        \$__tag = \$__value;
-                        \$__params = [];
-                    } else {
-                        continue;
+        if (class_exists('Statamic\Statamic')) {
+            Blade::directive('tags', function ($expression) {
+                /**
+                 * Use Statamic::tag() in a more convenient way
+                 * Usage:
+                 *  - @tags(['products' => ['collection:products' => ['type' => 'chair']]])
+                 *  - @tags(['products' => 'collection:products'])
+                 *  - @tags('collection:products')
+                 * etc...
+                 */
+                return "<?php
+                    foreach (Arr::wrap($expression) as \$__key => \$__value) {
+                        if (is_array(\$__value) && in_array('tag', \$__value)) {
+                            \$__tag = \$__value['tag'];
+                            \$__params = \$__value['params'] ?? [];
+                        } else if (is_array(\$__value) && count(\$__value) == 1) {
+                            \$__tag = array_keys(\$__value)[0];
+                            \$__params = array_values(\$__value)[0];
+                        } else if (is_string(\$__value) {
+                            \$__tag = \$__value;
+                            \$__params = [];
+                        } else {
+                            continue;
+                        }
+                        \$__varName = is_string(\$__key) ? \$__key : camel_case(str_replace(':', '_', \$__tag));
+                        \${\$__varName} = Statamic::tag(\$__tag)->params(\$__params)->fetch();
                     }
-                    \$__varName = is_string(\$__key) ? \$__key : camel_case(str_replace(':','_',\$__tag));
-                    \${\$__varName} = Statamic::tag(\$__tag)->params(\$__params)->fetch();
-                }
-            ?>";
-        });
+                ?>";
+            });
+        }
     }
 
     public function boot()
