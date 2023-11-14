@@ -143,7 +143,7 @@ If you only wish to change the text without changing attributes you can also pas
 ### @tags
 
 *This is a blade directive that's only available if you use Statamic in your project.*  
-When you want to get data from Statamic, often you need to use the `Statamic::tag` functionality. The `@tags` directive wraps that up to be a little more concise.
+When you want to get data from Statamic, you'll often find yourself needing to use the `Statamic::tag` functionality. The `@tags` directive wraps that up to be a little more concise.
 
 #### Usage
 
@@ -155,7 +155,7 @@ This directive can be used in the following way:
 
 This will give you camelCased variables called `$collectionProducts` and `$taxonomyTypes` that can then be used in your blade file.
 
-You can then also give it your own variable name and then send some params through, like this:
+You can also define your own variable names and then send some params through, like this:
 
 ```blade
 @tags([
@@ -164,7 +164,7 @@ You can then also give it your own variable name and then send some params throu
 ])
 ```
 
-If you only want one tag with the camelCased name, you can ditch the array:
+And if you only want one tag with the camelCased name, you can ditch the array:
 
 ```blade
 @tags('collection:products')
