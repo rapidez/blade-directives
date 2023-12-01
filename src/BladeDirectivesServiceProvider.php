@@ -68,7 +68,7 @@ class BladeDirectivesServiceProvider extends ServiceProvider
                         } else if (is_array(\$__value) && count(\$__value) == 1) {
                             \$__tag = array_keys(\$__value)[0];
                             \$__params = array_values(\$__value)[0];
-                        } else if (is_string(\$__value) {
+                        } else if (is_string(\$__value)) {
                             \$__tag = \$__value;
                             \$__params = [];
                         } else {
@@ -77,6 +77,7 @@ class BladeDirectivesServiceProvider extends ServiceProvider
                         \$__varName = is_string(\$__key) ? \$__key : camel_case(str_replace(':', '_', \$__tag));
                         \${\$__varName} = Statamic::tag(\$__tag)->params(\$__params)->fetch();
                     }
+                    unset(\$__tag, \$__params, \$__varName, \$__key, \$__value);
                 ?>";
             });
         }
