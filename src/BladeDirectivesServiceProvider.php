@@ -29,7 +29,7 @@ class BladeDirectivesServiceProvider extends ServiceProvider
         });
 
         Blade::directive('markdown', function ($markdown) {
-            return "<?php echo Str::markdown($markdown ?? ''); ?>";
+            return "<?php echo (fn(\$markdown, \$html_input = 'escape') => Str::markdown(\$markdown ?? '', ['html_input' => \$html_input]))($expression); ?>";
         });
 
         Blade::directive('return', function () {
