@@ -28,7 +28,7 @@ class BladeDirectivesServiceProvider extends ServiceProvider
             return "<?php try { echo \$__env->first({$expression}, \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); } catch (\InvalidArgumentException \$e) { if (!app()->environment('production')) { echo '<hr>'.__('View not found: :view', ['view' => implode(', ', [{$expression}][0])]).'<hr>'; } } ?>";
         });
 
-        Blade::directive('markdown', function ($markdown) {
+        Blade::directive('markdown', function ($expression) {
             return "<?php echo (fn(\$markdown, \$html_input = 'escape') => Str::markdown(\$markdown ?? '', ['html_input' => \$html_input]))($expression); ?>";
         });
 
