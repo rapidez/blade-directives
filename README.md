@@ -150,6 +150,50 @@ If you only wish to change the text without changing attributes you can also pas
 </div>
 ```
 
+### @tags
+
+*This is a blade directive that's only available if you use Statamic in your project.*  
+When you want to get data from Statamic, you'll often find yourself needing to use the `Statamic::tag` functionality. The `@tags` directive wraps that up to be a little more concise.
+
+#### Usage
+
+This directive can be used in the following way:
+
+```blade
+@tags(['collection:products', 'taxonomy:types'])
+```
+
+This will give you camelCased variables called `$collectionProducts` and `$taxonomyTypes` that can then be used in your blade file.
+
+You can also define your own variable names and then send some params through, like this:
+
+```blade
+@tags([
+    'products' => 'collection:products',
+    'types' => ['taxonomy:types' => ['color:is' => 'red']],
+])
+```
+
+And if you only want one tag with the camelCased name, you can ditch the array:
+
+```blade
+@tags('collection:products')
+```
+
+Finally, if you prefer having some explicitly named key/value pairs, you can even do this:
+
+```blade
+@tags([
+    'products' => [
+        'tag' => 'collection:products',
+    ],
+    'types' => [
+        'tag' => 'taxonomy:types',
+        'params' => ['color:is' => 'red'],
+    ],
+])
+```
+
 ## License
 
 GNU General Public License v3. Please see [License File](LICENSE) for more information.
