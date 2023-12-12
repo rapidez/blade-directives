@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.1.0...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.2.0...master)
+## [0.2.0](https://github.com/rapidez/blade-directives/releases/tag/0.2.0) - 2023-12-12
+
+### Added
+
+- Markdown directive (#1)
+
 ## [0.1.0](https://github.com/rapidez/blade-directives/releases/tag/0.1.0) - 2023-07-21
 
 ### Added
