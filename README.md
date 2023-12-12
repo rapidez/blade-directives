@@ -64,6 +64,16 @@ Outside of production mode it will alert about the missing templates however.
 @includeFirstSafe(['custom.admin', 'admin'], ['status' => 'complete'])
 ```
 
+### @markdown
+
+You can use the `@markdown` directive to transform markdown into html. Basically, `{!! Str::markdown($text) !!}` but in directive form.
+
+#### Usage
+
+```blade
+@markdown($text)
+```
+
 ### @return
 
 The `@return` blade directive simply stops any further processing of the current template
