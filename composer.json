@@ -13,6 +13,9 @@
         "illuminate/support": "^9.0|^10.0"
     },
     "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
         "psr-4": {
             "Rapidez\\BladeDirectives\\": "src"
         }
