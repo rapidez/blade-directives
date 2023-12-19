@@ -55,7 +55,7 @@ class BladeDirectivesServiceProvider extends ServiceProvider
         });
 
         Blade::if('safeIsset', function ($target, $key = null) {
-            return boolval(data_get_value($target, $key, false));
+            return data_get_value($target, $key) !== null;
         });
     }
 
