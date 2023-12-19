@@ -12,7 +12,13 @@
         "php": "^8.0|^8.1|^8.2",
         "illuminate/support": "^9.0|^10.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5.10"
+    },
     "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
         "psr-4": {
             "Rapidez\\BladeDirectives\\": "src"
         }

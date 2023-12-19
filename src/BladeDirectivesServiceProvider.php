@@ -53,6 +53,10 @@ class BladeDirectivesServiceProvider extends ServiceProvider
 <?php \$attributes ??= new \\Illuminate\\View\\ComponentAttributeBag; ?>
 <?php \$attributes = \$attributes->exceptProps($expression); ?>";
         });
+
+        Blade::if('safeIsset', function ($target, $key = null) {
+            return boolval(data_get_value($target, $key, false));
+        });
     }
 
     public function boot()
