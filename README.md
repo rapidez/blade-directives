@@ -150,6 +150,27 @@ If you only wish to change the text without changing attributes you can also pas
 </div>
 ```
 
+## Helpers
+
+### optionalDeep
+
+Have you heard of [optional()](https://laravel.com/docs/10.x/helpers#method-optional)? This is the supercharged version working at any depth!
+It makes sure that any missing key will not break your code, especially helpful when mixing Statamic with Blade
+
+#### Usage
+
+It will automatically return the value when casting to string so you can immediately echo out it's value, if you want to get the value use the get method.
+This will return null if anywhere along the chain the value or key does not exist.
+```blade
+{{ optionalDeep($object)->undefinedKey->anotherUndefinedKey }}
+{{ optionalDeep($object)->header->usp->link->value() }}
+@if(optionalDeep($object)->header->usp->link->value()->isset())
+@if(optionalDeep($object)->header->usp->link->value()->get() === 'test')
+```
+
+> [!TIP]
+> the [OptionalDeep](https://github.com/rapidez/blade-directives/blob/master/src/OptionalDeep.php#L15) class implements Macroable, allowing you to extend it with your own functions!
+
 ## License
 
 GNU General Public License v3. Please see [License File](LICENSE) for more information.
