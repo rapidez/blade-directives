@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.3.0...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.3.1...master)
+## [0.3.1](https://github.com/rapidez/blade-directives/releases/tag/0.3.1) - 2024-02-21
+
+### Fixed
+
+- Handle passing optionalDeep into optionalDeep (#6)
+
 ## [0.3.0](https://github.com/rapidez/blade-directives/releases/tag/0.3.0) - 2024-01-24
 
 ### Added
