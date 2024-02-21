@@ -20,7 +20,7 @@ class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSer
 
     public function __construct($value)
     {
-        $this->value = $value;
+        $this->value = $value instanceof static ? $value->get() : $value;
     }
 
     public function __get($key): static
