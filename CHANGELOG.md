@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.3.1...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.4.0...master)
+## [0.4.0](https://github.com/rapidez/blade-directives/releases/tag/0.4.0) - 2024-02-22
+
+### Added
+
+- Allow attempted casting to boolean and array (#7)
+
 ## [0.3.1](https://github.com/rapidez/blade-directives/releases/tag/0.3.1) - 2024-02-21
 
 ### Fixed
