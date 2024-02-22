@@ -11,8 +11,6 @@ use IteratorAggregate;
 use JsonSerializable;
 use Traversable;
 
-use function PHPUnit\Framework\isEmpty;
-
 class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSerializable
 {
     use Macroable {
