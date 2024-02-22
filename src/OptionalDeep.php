@@ -5,10 +5,13 @@ namespace Rapidez\BladeDirectives;
 use ArrayAccess;
 use ArrayObject;
 use Countable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Macroable;
 use IteratorAggregate;
 use JsonSerializable;
 use Traversable;
+
+use function PHPUnit\Framework\isEmpty;
 
 class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSerializable
 {
@@ -83,7 +86,7 @@ class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSer
 
     public function __isNotEmpty(): bool
     {
-        if (method_exists($this->value, 'value')) {
+        if (is_object($this->value) && method_exists($this->value, 'value')) {
             return boolval($this->value->value());
         }
 
@@ -93,6 +96,37 @@ class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSer
     public function __isEmpty(): bool
     {
         return !$this->isNotEmpty();
+    }
+
+    /**
+     * Attempt to cast the optionalDeep object to a boolean.
+     * This is not a real magic method, but common practice in other frameworks.
+     * see: https://wiki.php.net/rfc/objects-can-be-falsifiable
+     */
+    public function __toBool(): bool
+    {
+        if (is_bool($this->value)) {
+            return $this->value;
+        }
+
+        if (!$this->isset()) {
+            return false;
+        }
+
+        if ($this->__isEmpty()) {
+            return false;
+        }
+
+        if (is_object($this->value) && method_exists($this->value, 'toBool')) {
+            return $this->value->toBool();
+        }
+
+        if (is_object($this->value) && method_exists($this->value, '__toBool')) {
+            return $this->value->__toBool();
+        }
+
+        // Is not empty, thus true.
+        return true;
     }
 
     // ArrayAccess interface
@@ -114,6 +148,37 @@ class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSer
     public function offsetUnset(mixed $offset): void
     {
         $this->__unset($offset);
+    }
+
+    /**
+     * Attempt to cast the optionalDeep object to an array.
+     * This is not a real magic method, but common practice in other frameworks.
+     * see: https://wiki.php.net/rfc/to-array
+     */
+    public function __toArray(): array
+    {
+        if (is_array($this->value)) {
+            return $this->value;
+        }
+
+        if ($this->value instanceof \Traversable) {
+            $return = [];
+            foreach ($this->value as $key => $value) {
+                $return[$key] = $value;
+            }
+
+            return $return;
+        }
+
+        if (is_object($this->value) && method_exists($this->value, 'toArray')) {
+            return $this->value->toArray();
+        }
+
+        if (is_object($this->value) && method_exists($this->value, '__toArray')) {
+            return $this->value->__toArray();
+        }
+
+        return Arr::wrap($this->value);
     }
 
     // IteratorAggregate interface
@@ -154,6 +219,15 @@ class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSer
             }
             if ($method == 'isEmpty') {
                 return $this->__isEmpty();
+            }
+            if ($method == 'toBool') {
+                return $this->__toBool();
+            }
+            if ($method == 'toArray') {
+                return $this->__toArray();
+            }
+            if ($method == 'toString') {
+                return $this->__toString();
             }
 
             return new static(null);
