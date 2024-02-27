@@ -5,13 +5,14 @@ namespace Rapidez\BladeDirectives;
 use ArrayAccess;
 use ArrayObject;
 use Countable;
+use Illuminate\Contracts\Support\CanBeEscapedWhenCastToString;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Macroable;
 use IteratorAggregate;
 use JsonSerializable;
 use Traversable;
 
-class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSerializable
+class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSerializable, CanBeEscapedWhenCastToString
 {
     use Macroable {
         __call as macroCall;
@@ -203,6 +204,22 @@ class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSer
     public function jsonSerialize(): mixed
     {
         return $this->value;
+    }
+
+    // CanBeEscapedWhenCastToString interface
+    // This function gets called exclusively when passing props to a Blade component
+    // Here we hack it to return the full object rather than an escaped string when the value isn't stringable
+    public function escapeWhenCastingToString($escape = true)
+    {
+        if ($this->value instanceof Stringable
+            || is_string($this->value)
+            || is_scalar($this->value)
+            || $this->value === null
+        ) {
+            return e($this->value);
+        }
+
+        return $this;
     }
 
     public function __call($method, $parameters): mixed
