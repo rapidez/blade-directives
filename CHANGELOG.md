@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.4.0...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.4.1...master)
+## [0.4.1](https://github.com/rapidez/blade-directives/releases/tag/0.4.1) - 2024-02-27
+
+### Fixed
+
+- Use CanBeEscapedWhenCastToString (#8)
+
 ## [0.4.0](https://github.com/rapidez/blade-directives/releases/tag/0.4.0) - 2024-02-22
 
 ### Added
