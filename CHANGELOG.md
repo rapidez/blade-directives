@@ -1,6 +1,13 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.4.1...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.4.2...master)
+## [0.4.2](https://github.com/rapidez/blade-directives/releases/tag/0.4.2) - 2024-02-29
+
+### Fixed
+
+- Fix method_exists check (#9)
+- Use Arrayable on OptionalDeep (#10)
+
 ## [0.4.1](https://github.com/rapidez/blade-directives/releases/tag/0.4.1) - 2024-02-27
 
 ### Fixed
