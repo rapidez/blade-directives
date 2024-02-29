@@ -181,6 +181,12 @@ class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSer
         return Arr::wrap($this->value);
     }
 
+    // Arrayable interface
+    public function toArray(): array
+    {
+        return $this->__toArray();
+    }
+
     // IteratorAggregate interface
     public function getIterator(): Traversable
     {
@@ -221,12 +227,6 @@ class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSer
         }
 
         return $this;
-    }
-
-    // Arrayable interface
-    public function toArray(): array
-    {
-        return $this->__toArray();
     }
 
     public function __call($method, $parameters): mixed
