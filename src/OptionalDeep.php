@@ -228,7 +228,7 @@ class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSer
             return $this->macroCall($method, $parameters);
         }
 
-        if (!is_object($this->value) || !is_string($this->value) || !method_exists($this->value, $method)) {
+        if (!is_object($this->value) || !method_exists($this->value, $method)) {
             if ($method == 'isNotEmpty') {
                 return $this->__isNotEmpty();
             }
