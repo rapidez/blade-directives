@@ -5,6 +5,7 @@ namespace Rapidez\BladeDirectives;
 use ArrayAccess;
 use ArrayObject;
 use Countable;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\CanBeEscapedWhenCastToString;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Macroable;
@@ -12,7 +13,7 @@ use IteratorAggregate;
 use JsonSerializable;
 use Traversable;
 
-class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSerializable, CanBeEscapedWhenCastToString
+class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSerializable, CanBeEscapedWhenCastToString, Arrayable
 {
     use Macroable {
         __call as macroCall;
@@ -222,6 +223,12 @@ class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSer
         return $this;
     }
 
+    // Arrayable interface
+    public function toArray(): array
+    {
+        return $this->__toArray();
+    }
+
     public function __call($method, $parameters): mixed
     {
         if (static::hasMacro($method)) {
@@ -237,9 +244,6 @@ class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSer
             }
             if ($method == 'toBool') {
                 return $this->__toBool();
-            }
-            if ($method == 'toArray') {
-                return $this->__toArray();
             }
             if ($method == 'toString') {
                 return $this->__toString();
