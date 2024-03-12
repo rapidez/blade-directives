@@ -200,7 +200,7 @@ class OptionalDeep implements ArrayAccess, IteratorAggregate, Countable, JsonSer
     // Countable interface
     public function count(): int
     {
-        if ($this->value instanceof Countable) {
+        if ($this->value instanceof Countable || is_array($this->value)) {
             return count($this->value);
         }
 
