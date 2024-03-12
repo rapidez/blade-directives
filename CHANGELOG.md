@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.4.2...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.4.3...master)
+## [0.4.3](https://github.com/rapidez/blade-directives/releases/tag/0.4.3) - 2024-03-12
+
+### Fixed
+
+- Fix count on arrays (#11)
+
 ## [0.4.2](https://github.com/rapidez/blade-directives/releases/tag/0.4.2) - 2024-02-29
 
 ### Fixed
