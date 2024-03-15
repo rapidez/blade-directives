@@ -86,6 +86,26 @@ The `@return` blade directive simply stops any further processing of the current
 @return
 ```
 
+### @slotdefault
+
+When you've an optional slot this directive gives you a cleaner way of defining a fallback. Normally you do something like this:
+
+```blade
+@if ($slot->isEmpty())
+    This is default content if the slot is empty.
+@else
+    {{ $slot }}
+@endif
+```
+
+#### Usage
+
+```blade
+@slotdefault('slot')
+    This is default content if the slot is empty.
+@endslotdefault
+```
+
 ### @slots
 
 The `@slots` blade directive is used within blade components.
