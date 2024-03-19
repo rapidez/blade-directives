@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.4.3...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.5.0...master)
+## [0.5.0](https://github.com/rapidez/blade-directives/releases/tag/0.5.0) - 2024-03-19
+
+### Added
+
+- Slotdefault directive (#12)
+
 ## [0.4.3](https://github.com/rapidez/blade-directives/releases/tag/0.4.3) - 2024-03-12
 
 ### Fixed
