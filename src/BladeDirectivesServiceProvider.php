@@ -53,6 +53,15 @@ class BladeDirectivesServiceProvider extends ServiceProvider
 <?php \$attributes ??= new \\Illuminate\\View\\ComponentAttributeBag; ?>
 <?php \$attributes = \$attributes->exceptProps($expression); ?>";
         });
+
+        Blade::directive('slotdefault', function ($expression) {
+            $slot = trim($expression, '\'"');
+            return "<?php if(isset($$slot) && ($$slot)->isNotEmpty()): echo $$slot; else: ?>";
+        });
+
+        Blade::directive('endslotdefault', function ($expression) {
+            return '<?php endif; ?>';
+        });
     }
 
     public function boot()
