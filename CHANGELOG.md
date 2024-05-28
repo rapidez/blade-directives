@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.5.0...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.6.0...master)
+## [0.6.0](https://github.com/rapidez/blade-directives/releases/tag/0.6.0) - 2024-05-28
+
+### Added
+
+- Laravel 11 support (#14)
+
 ## [0.5.0](https://github.com/rapidez/blade-directives/releases/tag/0.5.0) - 2024-03-19
 
 ### Added
