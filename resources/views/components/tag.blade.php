@@ -1,4 +1,8 @@
-@props(['is' => 'div'])
-<{{ $is }} {{ $attributes }}>
+@props(['is' => 'div', 'if' => true])
+@if ($if)
+    <{{ $is }} {{ $attributes }}>
+@endif
     {{ $slot }}
-</{{ $is }}>
+@if ($if)
+    </{{ $is }}>
+@endif
