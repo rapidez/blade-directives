@@ -46,7 +46,7 @@ class BladeDirectivesServiceProvider extends ServiceProvider
             return "<?php foreach ({$expression} as \$__key => \$__value) {
     \$__key = is_numeric(\$__key) ? \$__value : \$__key;
     \$__value = !is_array(\$__value) && !\$__value instanceof \ArrayAccess ? [] : \$__value;
-    if (!isset(\$\$__key) || is_string(\$\$__key)) {
+    if (!isset(\$\$__key) || is_string(\$\$__key) || \$\$__key instanceof Stringable) {
         \$\$__key = new \Illuminate\View\ComponentSlot(\$\$__key ?? \$__value['contents'] ?? '', \$__value['attributes'] ?? []);
     }
 } ?>
