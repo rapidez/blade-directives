@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.6.0...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.7.0...master)
+## [0.7.0](https://github.com/rapidez/blade-directives/releases/tag/0.7.0) - 2024-10-23
+
+### Added
+
+- @return directive condition option (#17)
+
 ## [0.6.0](https://github.com/rapidez/blade-directives/releases/tag/0.6.0) - 2024-05-28
 
 ### Added
