@@ -84,8 +84,11 @@ The `@return` blade directive simply stops any further processing of the current
 
 ```blade
 @return
-{{-- Only return if collection is empty. --}}
-@return($collection->count() <= 0)
+```
+
+Or only when a condition is true:
+```blade
+@return($someConditionIsTrue)
 ```
 
 ### @slotdefault
