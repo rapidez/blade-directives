@@ -32,8 +32,8 @@ class BladeDirectivesServiceProvider extends ServiceProvider
             return "<?php echo (fn(\$markdown, \$html_input = 'escape') => Str::markdown(\$markdown ?? '', ['html_input' => \$html_input]))($expression); ?>";
         });
 
-        Blade::directive('return', function () {
-            return "<?php return; ?>";
+        Blade::directive('return', function ($expression) {
+            return "<?php if ((fn (\$return = true) => \$return)($expression)) {return;}; ?>";
         });
 
         Blade::directive('slots', function ($expression) {

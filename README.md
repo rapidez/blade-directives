@@ -86,6 +86,11 @@ The `@return` blade directive simply stops any further processing of the current
 @return
 ```
 
+Or only when a condition is true:
+```blade
+@return($someConditionIsTrue)
+```
+
 ### @slotdefault
 
 When you've an optional slot this directive gives you a cleaner way of defining a fallback. Normally you do something like this:
