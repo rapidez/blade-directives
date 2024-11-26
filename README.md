@@ -8,29 +8,6 @@ This package adds blade directives that we found we needed in Laravel during dev
 composer require rapidez/blade-directives
 ```
 
-## Components
-
-### x-tag
-
-Yeah we know, it's a component, not a directive but this could be a useful one that's why've added it. It is a Blade version of a [dynamic Vue component](https://vuejs.org/guide/essentials/component-basics.html#dynamic-components)
-
-#### Usage
-
-```blade
-<x-tag is="span" class="font-bold">
-    Something
-</x-tag>
-```
-
-which will result in
-
-```html
-<span class="font-bold">
-    Something
-</span>
-```
-
-
 ## Directives
 
 ### @attributes
