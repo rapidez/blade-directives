@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.7.0...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/0.8.0...master)
+## [0.8.0](https://github.com/rapidez/blade-directives/releases/tag/0.8.0) - 2024-11-26
+
+### Changed
+
+- Removed x-tag (#16)
+
 ## [0.7.0](https://github.com/rapidez/blade-directives/releases/tag/0.7.0) - 2024-10-23
 
 ### Added
