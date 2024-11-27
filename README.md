@@ -162,7 +162,7 @@ If you only wish to change the text without changing attributes you can also pas
 
 ### @includeCached
 
-Just like [`@include`](https://laravel.com/docs/11.x/blade#including-subviews) but cached. Everything returned will be cached with [`Cache::flexible()`](https://laravel.com/docs/11.x/cache#swr) for 5 minutes; and refreshed in the background until it expires after 24 hours. After that it will be refreshed as it's normally working. The cache key is a combination of the view name and the current slugified url. That way this can be used with multisite setups:
+Just like [`@include`](https://laravel.com/docs/11.x/blade#including-subviews) but cached. Everything returned will be cached with [`Cache::flexible()`](https://laravel.com/docs/11.x/cache#swr) for 5 minutes; and refreshed in the background until it expires after 24 hours. After that it will be refreshed as usual. The cache key is a combination of the view name and the current slugified url. That way this can be used with multisite setups:
 ```
 include-cache::site-{ Str::slug(url('/')) }-{ $viewName }'
 ```
@@ -175,7 +175,7 @@ include-cache::site-{ Str::slug(url('/')) }-{ $viewName }'
 
 #### Notes
 
-Keep in mind that any dynamic things within the view will not be executed when cached. For example `@push`, see [Blade Stacks](https://laravel.com/docs/11.x/blade#stacks). Also [Blade Icons Deferring](https://github.com/blade-ui-kit/blade-icons#deferring-icons) doesn't work, you've to use these things outside the cached include!
+Keep in mind that any dynamic things within the view will not be executed when cached. For example `@push`, see [Blade Stacks](https://laravel.com/docs/11.x/blade#stacks). Also [Blade Icons Deferring](https://github.com/blade-ui-kit/blade-icons#deferring-icons) doesn't work, you have to use these things outside the cached include!
 
 ## Helpers
 
