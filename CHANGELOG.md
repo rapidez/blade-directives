@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/1.0.0...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/1.0.1...master)
+## [1.0.1](https://github.com/rapidez/blade-directives/releases/tag/1.0.1) - 2024-12-12
+
+### Fixed
+
+- Removed old anonymousComponentPath (#19)
+
 ## [1.0.0](https://github.com/rapidez/blade-directives/releases/tag/1.0.0) - 2024-11-27
 
 ### Added
