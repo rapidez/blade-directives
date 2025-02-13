@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/1.0.1...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/1.0.2...master)
+## [1.0.2](https://github.com/rapidez/blade-directives/releases/tag/1.0.2) - 2025-02-13
+
+### Fixed
+
+- includeCached with data (#20)
+
 ## [1.0.1](https://github.com/rapidez/blade-directives/releases/tag/1.0.1) - 2024-12-12
 
 ### Fixed
