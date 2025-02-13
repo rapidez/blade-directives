@@ -70,7 +70,7 @@ class BladeDirectivesServiceProvider extends ServiceProvider
             // That way it's stays dynamic. The Str::slug(url('/')) is used
             // to support multi sites; a cache per application url.
             // You could use URL::forceRootUrl(...) for this.
-            $cacheKey = trim($expression, '\'"');
+            $cacheKey = md5(trim($expression, '\'"'));
 
             // So it's cached for 5 minutes and refreshed in the background until + 24 hours.
             // Which never happens but it's required; after that it refreshed directly.
