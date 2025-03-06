@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/1.0.2...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/1.1.0...master)
+## [1.1.0](https://github.com/rapidez/blade-directives/releases/tag/1.1.0) - 2025-03-06
+
+### Added
+
+- Laravel 12 support (#21)
+
 ## [1.0.2](https://github.com/rapidez/blade-directives/releases/tag/1.0.2) - 2025-02-13
 
 ### Fixed
