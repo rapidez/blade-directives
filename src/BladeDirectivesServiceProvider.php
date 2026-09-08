@@ -66,13 +66,17 @@ class BladeDirectivesServiceProvider extends ServiceProvider
         Blade::directive('includeCached', function ($expression) {
             $expression = Blade::stripParentheses($expression);
 
-            // The rest of the cacheKey needs to get defined within the generated views.
-            // That way it stays dynamic. The Str::slug(url('/')) is used to support multi sites.
-            // You could use URL::forceRootUrl(...) for this.
-            $cacheKey = md5(trim($expression, '\'"'));
-
-            // It's cached for 5 minutes and then keeps a stale copy for 24 hours.
-            return "<?php echo \Illuminate\Support\Facades\Cache::flexible('include-cache::site-'.\Illuminate\Support\Str::slug(url('/')).'-{$cacheKey}', [now()->addMinutes(5), now()->addDay()], fn() => \$__env->make({$expression}, \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render()); ?>";
+            // Using flexible cache so that it's cached every 5 minutes, but then refreshed in the background if 24 hours have passed without a cache hit.
+            // This calculates the cache key inside of the generated PHP so that variables are accounted for.
+            // NOTE: Complex expressions (e.g. large collections, eloquent models) will cause the json_encode to be slow.
+            return "<?php
+\$__cacheKey = md5(serialize([{$expression}]));
+echo \Illuminate\Support\Facades\Cache::flexible(
+    'include-cache::site-'.\Illuminate\Support\Str::slug(url('/')).'-'.\$__cacheKey,
+    [now()->addMinutes(5), now()->addDay()],
+    fn() => \$__env->make({$expression}, \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render());
+unset(\$__cacheKey);
+            ?>";
         });
     }
 

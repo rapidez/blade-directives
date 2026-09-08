@@ -175,6 +175,8 @@ include-cache::site-{ Str::slug(url('/')) }-{ $viewName }'
 
 #### Notes
 
+While you *can* use variables for the view name and even the data that you pass along, beware of complexity. The data you put into the expression of this directive gets run through the `serialize()` function (which then gets hashed to generate the cache key).
+
 Keep in mind that any dynamic things within the view will not be executed when cached. For example `@push`, see [Blade Stacks](https://laravel.com/docs/11.x/blade#stacks). Also [Blade Icons Deferring](https://github.com/blade-ui-kit/blade-icons#deferring-icons) doesn't work, you have to use these things outside the cached include!
 
 ## Helpers
