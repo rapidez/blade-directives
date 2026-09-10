@@ -1,6 +1,14 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/1.2.0...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/1.3.0...master)
+## [1.3.0](https://github.com/rapidez/blade-directives/releases/tag/1.3.0) - 2026-09-10
+
+### Changed
+
+- Determine cache key in includeCached dynamically (#24)
+
+
+
 ## [1.2.0](https://github.com/rapidez/blade-directives/releases/tag/1.2.0) - 2026-04-20
 
 ### Added
