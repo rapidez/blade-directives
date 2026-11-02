@@ -2,8 +2,10 @@
 
 namespace Rapidez\BladeDirectives;
 
+use BladeUI\Icons\Factory as IconFactory;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Factory as ViewFactory;
 
 class BladeDirectivesServiceProvider extends ServiceProvider
 {
@@ -74,7 +76,7 @@ class BladeDirectivesServiceProvider extends ServiceProvider
 echo \Illuminate\Support\Facades\Cache::flexible(
     'include-cache::site-'.\Illuminate\Support\Str::slug(url('/')).'-'.\$__cacheKey,
     [now()->addMinutes(5), now()->addDay()],
-    fn() => \$__env->make({$expression}, \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render());
+    fn() => \$__env->renderWithoutIconDeferring({$expression}, \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path'])));
 unset(\$__cacheKey);
             ?>";
         });
@@ -82,5 +84,23 @@ unset(\$__cacheKey);
 
     public function boot()
     {
+        ViewFactory::macro('renderWithoutIconDeferring', function ($view, $data = [], $mergeData = []) {
+            if (! class_exists(IconFactory::class)) {
+                return $this->make($view, $data, $mergeData)->render();
+            }
+
+            $iconFactory = app(IconFactory::class);
+            $defer = config('blade-icons.attributes.defer');
+
+            config()->set('blade-icons.attributes.defer', false);
+            app()->forgetInstance(IconFactory::class);
+
+            try {
+                return $this->make($view, $data, $mergeData)->render();
+            } finally {
+                config()->set('blade-icons.attributes.defer', $defer);
+                app()->instance(IconFactory::class, $iconFactory);
+            }
+        });
     }
 }
