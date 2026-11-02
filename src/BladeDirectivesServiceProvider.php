@@ -4,6 +4,8 @@ namespace Rapidez\BladeDirectives;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
+use Illuminate\View\Factory as ViewFactory;
 
 class BladeDirectivesServiceProvider extends ServiceProvider
 {
@@ -71,16 +73,44 @@ class BladeDirectivesServiceProvider extends ServiceProvider
             // NOTE: Complex expressions (e.g. large collections, eloquent models) will cause the json_encode to be slow.
             return "<?php
 \$__cacheKey = md5(serialize([{$expression}]));
-echo \Illuminate\Support\Facades\Cache::flexible(
+\$__cached = \Illuminate\Support\Facades\Cache::flexible(
     'include-cache::site-'.\Illuminate\Support\Str::slug(url('/')).'-'.\$__cacheKey,
     [now()->addMinutes(5), now()->addDay()],
-    fn() => \$__env->make({$expression}, \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render());
-unset(\$__cacheKey);
+    fn() => \$__env->renderWithDeferredIcons({$expression}, \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path'])));
+if (is_array(\$__cached)) {
+    \$__env->pushDeferredIcons(\$__cached['icons']);
+    \$__cached = \$__cached['html'];
+}
+echo \$__cached;
+unset(\$__cacheKey, \$__cached);
             ?>";
         });
     }
 
     public function boot()
     {
+        ViewFactory::macro('renderWithDeferredIcons', function ($view, $data = [], $mergeData = []) {
+            $html = $this->make($view, $data, $mergeData)->render();
+
+            preg_match_all('/<use href="#(icon-[^"]+)"/', $html, $matches);
+
+            $icons = collect(preg_split('/(?=<g id="icon-)/', $this->yieldPushContent('bladeicons')))
+                ->keyBy(fn ($chunk) => Str::betweenFirst($chunk, '<g id="', '"'))
+                ->only($matches[1])
+                ->all();
+
+            return compact('html', 'icons');
+        });
+
+        ViewFactory::macro('pushDeferredIcons', function (array $icons) {
+            foreach ($icons as $id => $icon) {
+                if ($this->hasRenderedOnce($id)) {
+                    continue;
+                }
+
+                $this->markAsRenderedOnce($id);
+                $this->startPush('bladeicons', $icon);
+            }
+        });
     }
 }
