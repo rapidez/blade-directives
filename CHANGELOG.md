@@ -1,6 +1,12 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/rapidez/blade-directives/compare/1.3.0...master)
+[Unreleased changes](https://github.com/rapidez/blade-directives/compare/1.3.1...1.3.1)
+## [1.3.1](https://github.com/rapidez/blade-directives/releases/tag/1.3.1) - 2026-11-17
+
+### Fixed
+
+- Fix Blade icon deferring with the includeCached directive (#27)
+
 ## [1.3.0](https://github.com/rapidez/blade-directives/releases/tag/1.3.0) - 2026-09-10
 
 ### Changed
