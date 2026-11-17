@@ -4,6 +4,7 @@ namespace Rapidez\BladeDirectives;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Factory as ViewFactory;
 
 class BladeDirectivesServiceProvider extends ServiceProvider
 {
@@ -71,16 +72,71 @@ class BladeDirectivesServiceProvider extends ServiceProvider
             // NOTE: Complex expressions (e.g. large collections, eloquent models) will cause the json_encode to be slow.
             return "<?php
 \$__cacheKey = md5(serialize([{$expression}]));
-echo \Illuminate\Support\Facades\Cache::flexible(
+\$__cached = \Illuminate\Support\Facades\Cache::flexible(
     'include-cache::site-'.\Illuminate\Support\Str::slug(url('/')).'-'.\$__cacheKey,
     [now()->addMinutes(5), now()->addDay()],
-    fn() => \$__env->make({$expression}, \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render());
-unset(\$__cacheKey);
+    fn() => \$__env->renderWithStacks({$expression}, \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path'])));
+if (is_array(\$__cached)) {
+    \$__env->pushStacks(\$__cached);
+    \$__cached = \$__cached['html'];
+}
+echo \$__cached;
+unset(\$__cacheKey, \$__cached);
             ?>";
         });
     }
 
     public function boot()
     {
+        ViewFactory::macro('renderWithStacks', function ($view, $data = [], $mergeData = []) {
+            $pushes = $this->pushes;
+            $prepends = $this->prepends;
+            $renderedOnce = $this->renderedOnce;
+            $this->renderedOnce = [];
+
+            try {
+                $html = $this->make($view, $data, $mergeData)->render();
+                $once = array_keys($this->renderedOnce);
+                $newPushes = [];
+                $newPrepends = [];
+
+                foreach ($this->pushes as $section => $contents) {
+                    foreach ($contents as $key => $content) {
+                        $newPushes[$section] = ($newPushes[$section] ?? '') . substr($content, strlen($pushes[$section][$key] ?? ''));
+                    }
+                }
+
+                foreach ($this->prepends as $section => $contents) {
+                    foreach ($contents as $key => $content) {
+                        $newPrepends[$section] = substr($content, 0, strlen($content) - strlen($prepends[$section][$key] ?? '')) . ($newPrepends[$section] ?? '');
+                    }
+                }
+            } finally {
+                $this->pushes = $pushes;
+                $this->prepends = $prepends;
+                $this->renderedOnce = $renderedOnce;
+            }
+
+            return [
+                'html'     => $html,
+                'pushes'   => array_filter($newPushes),
+                'prepends' => array_filter($newPrepends),
+                'once'     => $once,
+            ];
+        });
+
+        ViewFactory::macro('pushStacks', function (array $stacks) {
+            foreach ($stacks['pushes'] as $section => $content) {
+                $this->startPush($section, $content);
+            }
+
+            foreach ($stacks['prepends'] as $section => $content) {
+                $this->startPrepend($section, $content);
+            }
+
+            foreach ($stacks['once'] as $id) {
+                $this->markAsRenderedOnce($id);
+            }
+        });
     }
 }
